@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {FILTER_ALL} from '../../services/filter';
 import {MODE_CREATE, MODE_NONE} from '../../services/mode';
-import {objectWithOnly, wrapChildrenWith} from '../../util/common';
-import {getAll, addToList, updateStatus} from '../../services/todo';
+import {wrapChildrenWith} from '../../util/common';
 
 class StateProvider extends Component {
     constructor() {
@@ -11,22 +10,36 @@ class StateProvider extends Component {
             query: '',
             mode: MODE_CREATE,
             filter: FILTER_ALL,
-            list: getAll()
+            list: []
         }
     }
 
     render() {
         let children = wrapChildrenWith(this.props.children, {
             data: this.state,
-            actions: objectWithOnly(this, ['addNew', 'changeFilter', 'changeStatus', 'changeMode', 'setSearchQuery'])
+            actions: {
+                addNew: this.addNew.bind(this),
+                changeFilter: this.changeFilter.bind(this),
+                changeStatus: this.changeStatus.bind(this),
+                changeMode: this.changeMode.bind(this),
+                setSearchQuery: this.setSearchQuery.bind(this),
+                editTask: this.editTask.bind(this),
+                deleteTask: this.deleteTask.bind(this)
+            }
         });
 
         return <div>{children}</div>;
     }
 
-    addNew(text) {
-        let updatedList = addToList(this.state.list, {text, completed: false});
-
+    addNew(task) {
+        const updatedList = [
+            ...this.state.list,
+            {
+                ...task,
+                id: this.state.list.length + 1,
+                createdAt: new Date().toISOString()
+            }
+        ];
         this.setState({list: updatedList});
     }
 
@@ -34,9 +47,13 @@ class StateProvider extends Component {
         this.setState({filter});
     }
 
-    changeStatus(itemId, completed) {
-        const updatedList = updateStatus(this.state.list, itemId, completed);
-
+    changeStatus(itemId, newStatus) {
+        const updatedList = this.state.list.map(item => {
+            if (item.id === itemId) {
+                return {...item, status: newStatus};
+            }
+            return item;
+        });
         this.setState({list: updatedList});
     }
 
@@ -46,6 +63,18 @@ class StateProvider extends Component {
 
     setSearchQuery(text) {
         this.setState({query: text || ''});
+    }
+
+    editTask(updatedTask) {
+        const updatedList = this.state.list.map(task => 
+            task.id === updatedTask.id ? updatedTask : task
+        );
+        this.setState({ list: updatedList });
+    }
+
+    deleteTask(taskId) {
+        const updatedList = this.state.list.filter(task => task.id !== taskId);
+        this.setState({ list: updatedList });
     }
 }
 

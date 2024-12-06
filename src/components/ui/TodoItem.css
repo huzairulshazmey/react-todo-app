@@ -1,0 +1,158 @@
+.kanban-board {
+    display: flex;
+    justify-content: space-between;
+}
+
+.kanban-column {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 30%;
+    padding: 10px;
+    margin: 0 10px;
+}
+
+.kanban-column h2 {
+    text-align: center;
+}
+
+.todo-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.todo-item:hover {
+    background-color: #f8f9fa;
+}
+
+.todo-content {
+    flex: 1;
+}
+
+.todo-text {
+    font-size: 14px;
+    color: #2d3436;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.todo-details {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.priority-tag {
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.priority-high {
+    background-color: #ffecec;
+    color: #ff4757;
+}
+
+.priority-medium {
+    background-color: #fff3e0;
+    color: #ff9f43;
+}
+
+.priority-low {
+    background-color: #e8f5e9;
+    color: #10ac84;
+}
+
+.date-tag {
+    font-size: 12px;
+    color: #636e72;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.date-tag i {
+    font-size: 14px;
+}
+
+/* Edit form styles */
+.edit-task-form {
+    padding: 12px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.edit-task-form .form-group {
+    margin-bottom: 8px;
+}
+
+.edit-task-form input,
+.edit-task-form select {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #dfe6e9;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.edit-task-form .form-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.save-button,
+.cancel-button {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.save-button {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.save-button:hover {
+    background-color: #27ae60;
+}
+
+.cancel-button {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.cancel-button:hover {
+    background-color: #c0392b;
+}
+
+.delete-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 8px;
+    transition: background-color 0.2s;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+}
